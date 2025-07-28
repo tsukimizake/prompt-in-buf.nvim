@@ -16,7 +16,7 @@ A Neovim plugin that opens a popup buffer with completion support for writing pr
 - **Auto-cleanup**: Automatically closes when leaving the buffer
 - **Highly Customizable**: User-defined buffer setup for additional keymaps and completion sources
 
-## Installation
+## Installation　and Configuration example
 
 Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
