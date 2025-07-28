@@ -71,16 +71,6 @@ require('prompt-in-buf').setup({
       vim.cmd('cabbrev <buffer> Wq lua require("prompt-in-buf").insert_to_original()')
       vim.cmd('cabbrev <buffer> WQ lua require("prompt-in-buf").insert_to_original()')
     end)
-    
-    -- Setup completion sources
-    local cmp = require('cmp')
-    cmp.setup.buffer({
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'buffer' },
-        { name = 'path' },
-      })
-    }, buf)
   end
 })
 ```
