@@ -87,6 +87,11 @@ local function create_popup_buffer()
 
     -- Insert content to target buffer
     insert_content_to_buffer(content, original_buf, original_win, original_cursor, is_terminal)
+
+    -- Stop insert mode for terminal buffers after sending
+    if is_terminal then
+      vim.cmd('stopinsert')
+    end
   end
 
   -- Helper function to close popup and return to original buffer
