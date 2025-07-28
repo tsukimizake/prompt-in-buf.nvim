@@ -25,7 +25,25 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
   "tsukimizake/prompt-in-buf-nvim",
   config = function()
     require('prompt-in-buf').setup({
-      keymap = '<leader>p' -- optional: set a keymap to open the prompt buffer
+      keymap = '<leader>p', -- Set a keymap to quickly open the prompt buffer
+      buffer_setup = function(buf)
+        -- Custom buffer setup function (optional)
+        -- Example: Add custom keymaps and completion sources
+        vim.keymap.set('n', '<CR>', function()
+          require('prompt-in-buf').insert_to_original()
+        end, { buffer = buf, noremap = true, silent = true })
+        
+        vim.keymap.set('i', '<C-c>', function()
+          require('prompt-in-buf').insert_to_original()
+        end, { buffer = buf, noremap = true, silent = true })
+        
+        -- Add :wq commands
+        vim.api.nvim_buf_call(buf, function()
+          vim.cmd('cabbrev <buffer> wq lua require("prompt-in-buf").insert_to_original()')
+          vim.cmd('cabbrev <buffer> Wq lua require("prompt-in-buf").insert_to_original()')
+          vim.cmd('cabbrev <buffer> WQ lua require("prompt-in-buf").insert_to_original()')
+        end)
+      end
     })
   end
 }
@@ -42,45 +60,9 @@ The plugin will:
 3. **Provide full completion**: All nvim-cmp sources work (unlike terminal mode)
 4. **Smart insertion**: Content is inserted differently based on buffer type:
    - **Regular buffers**: Text inserted at cursor position
-   - **Terminal buffers**: Text sent via terminal channel, returns to insert mode
-5. **Multiple completion methods**:
-   - `<Enter>` in normal mode
-   - `:wq`, `:Wq`, or `:WQ` commands
-   - `<C-c>` in insert mode (customizable)
-6. **Easy cancellation**: Press `<Esc>` to close without inserting
+   - **Terminal buffers**: Text sent via terminal channel
 
-## Configuration
-
-```lua
-require('prompt-in-buf').setup({
-  keymap = '<leader>p', -- Set a keymap to quickly open the prompt buffer
-  buffer_setup = function(buf)
-    -- Custom buffer setup function (optional)
-    -- Example: Add custom keymaps and completion sources
-    vim.keymap.set('n', '<CR>', function()
-      require('prompt-in-buf').insert_to_original()
-    end, { buffer = buf, noremap = true, silent = true })
-    
-    vim.keymap.set('i', '<C-c>', function()
-      require('prompt-in-buf').insert_to_original()
-    end, { buffer = buf, noremap = true, silent = true })
-    
-    -- Add :wq commands
-    vim.api.nvim_buf_call(buf, function()
-      vim.cmd('cabbrev <buffer> wq lua require("prompt-in-buf").insert_to_original()')
-      vim.cmd('cabbrev <buffer> Wq lua require("prompt-in-buf").insert_to_original()')
-      vim.cmd('cabbrev <buffer> WQ lua require("prompt-in-buf").insert_to_original()')
-    end)
-  end
-})
-```
-
-### Options
-
-- `keymap` (string, optional): Keymap to open the prompt buffer
-- `buffer_setup` (function, optional): Custom function to setup the popup buffer with additional keymaps, commands, and completion sources. The function receives the buffer number as its first argument.
-
-### Use Cases
+## Use Cases
 
 - **AI Tool Integration**: Perfect for tools like Claude Code, Aider, or other AI assistants in terminal mode
 - **Terminal Workflows**: Write complex commands or prompts with full completion support
