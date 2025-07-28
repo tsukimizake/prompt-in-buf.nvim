@@ -22,7 +22,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-  dir = "/path/to/prompt-in-buf-nvim", -- or your git repository
+  "tsukimizake/prompt-in-buf-nvim",
   config = function()
     require('prompt-in-buf').setup({
       keymap = '<leader>p' -- optional: set a keymap to open the prompt buffer
