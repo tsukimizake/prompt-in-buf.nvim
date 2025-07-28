@@ -5,6 +5,12 @@ local config = {
 }
 
 -- Helper function to insert content to different buffer types
+---@param content string The content to insert
+---@param target_buf integer The target buffer number
+---@param target_win integer The target window number
+---@param target_cursor table The cursor position as {row, col}
+---@param is_terminal boolean Whether the target buffer is a terminal
+---@return nil
 local function insert_content_to_buffer(content, target_buf, target_win, target_cursor, is_terminal)
   if not content or content == '' then
     return
@@ -31,6 +37,7 @@ local function insert_content_to_buffer(content, target_buf, target_win, target_
   end
 end
 
+---@return nil
 local function create_popup_buffer()
   local original_buf = vim.api.nvim_get_current_buf()
   local original_win = vim.api.nvim_get_current_win()
@@ -71,6 +78,7 @@ local function create_popup_buffer()
   end
 
   -- Define insert function with closure over local variables
+  ---@return nil
   function M.insert_to_original()
     local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
     local content = table.concat(lines, '\n')
@@ -95,6 +103,7 @@ local function create_popup_buffer()
   end
 
   -- Helper function to close popup and return to original buffer
+  ---@return nil
   local function close_popup()
     if vim.api.nvim_win_is_valid(win) then
       vim.api.nvim_win_close(win, true)
@@ -115,10 +124,15 @@ local function create_popup_buffer()
   })
 end
 
+---@return nil
 function M.open_prompt_buffer()
   create_popup_buffer()
 end
 
+---@param opts table|nil Configuration options
+---@field opts.buffer_setup function|nil Function to customize buffer setup
+---@field opts.keymap string|nil Keymap to bind for opening prompt buffer
+---@return nil
 function M.setup(opts)
   opts = opts or {}
 
