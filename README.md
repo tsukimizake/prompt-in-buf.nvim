@@ -7,10 +7,8 @@ A Neovim plugin that opens a popup buffer with completion support for writing pr
 - **Universal Buffer Support**: Works seamlessly with both regular buffers and terminal buffers
 - **Popup Interface**: Opens a centered popup buffer with markdown filetype and syntax highlighting
 - **Full Completion Support**: Unlike terminal mode, provides complete nvim-cmp integration
-- **Multiple Insert Methods**:
-  - Press `<Enter>` in normal mode
-  - Use `:wq`, `:Wq`, or `:WQ` commands
-  - Use `<C-c>` in insert mode (customizable)
+- **Customizable Insert Methods**:
+  - It doesn't have any default keymap/command. See the example.
 - **Smart Terminal Integration**: Automatically sends text to terminal via channel and returns to insert mode
 - **Easy Cancellation**: Press `<Esc>` to close without inserting
 - **Auto-cleanup**: Automatically closes when leaving the buffer
