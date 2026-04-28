@@ -8,8 +8,8 @@ A Neovim plugin that opens a popup buffer with completion support for writing pr
 - **Popup Interface**: Opens a centered popup buffer with markdown filetype and syntax highlighting
 - **Full Completion Support**: Unlike terminal mode, provides complete nvim-cmp integration
 - **Customizable Insert Methods**:
-  - It doesn't have any default keymap/command. See the example.
-- **Smart Terminal Integration**: Automatically sends text to terminal via channel and returns to insert mode
+  - No default keymap; `:PromptInBuf` command is always provided. Configure a keymap via the `keymap` option as shown below.
+- **Smart Terminal Integration**: Automatically sends text to terminal via channel and stops insert mode
 - **Easy Cancellation**: Press `<Esc>` to close without inserting
 - **Auto-cleanup**: Automatically closes when leaving the buffer
 - **Highly Customizable**: User-defined buffer setup for additional keymaps and completion sources
